@@ -10,7 +10,7 @@ def main():
     
  names = get_pokemon_names()
     
-    
+    # testing function
  get_pokemon_image('dugtrio',
                    r'C:\Users\Abdullah\OneDrive\Desktop\New Computer\COMP593-Lab10' )
  return
@@ -65,6 +65,7 @@ def get_pokemon_names(offest=0, limit=100000):
 
   resp_msg = requests.get(POKE_API_URL, params=quer_str_params)
   
+  # get response message 
   if resp_msg.status_code == requests.codes.ok:
       print('success ')
       pokemon_dict = resp_msg.json()
