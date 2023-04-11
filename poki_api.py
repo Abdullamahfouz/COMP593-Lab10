@@ -12,7 +12,7 @@ def main():
     
     # testing function
  get_pokemon_image('dugtrio',
-                   r'C:\Users\Abdullah\OneDrive\Desktop\New Computer\COMP593-Lab10' )
+      r'C:\Users\Abdullah\OneDrive\Desktop\New Computer\COMP593-Lab10' )
  return
     
     

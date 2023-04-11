@@ -6,9 +6,12 @@ import os
 import ctypes
 from image_lib import set_desktop_background_image
 
-def get_background ():
-    background = set_desktop_background_image(image_path)
-    return background
+
+
+def main ():
+    
+   set_desktop_background_image(image_path)
+    
 
 #gets the path of the script
 script_path = os.path.abspath(__file__)
@@ -70,7 +73,7 @@ btn_set_desktop.grid(row=2, column=0, padx=10, pady=10)
 
 root.mainloop()
 
-
-
+if __name__ == '__main__':
+    main()
 
 
