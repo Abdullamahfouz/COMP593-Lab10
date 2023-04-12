@@ -1,4 +1,3 @@
-
 import poki_api
 from tkinter import *
 from tkinter import ttk
@@ -6,30 +5,27 @@ import os
 import ctypes
 from image_lib import set_desktop_background_image
 
-
-
-def main ():
-    
-   set_desktop_background_image(image_path)
-    
-
 #gets the path of the script
 script_path = os.path.abspath(__file__)
 script_dir = os.path.dirname(script_path)
+
 image_cahe_dir = os.path.join(script_dir, 'images')
 if not os.path.isdir(image_cahe_dir):
     os.makedirs(image_cahe_dir)
-# makes the path
+
+# Creates window
 root = Tk()
 root.title("Pokemon Image Viewer")
 root.minsize(700, 700)
-
-# sets the pokemon weindow icon
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('COMP593.PokeImageViewer')
-icon_path = os.path.join(script_dir, 'Great-Ball.ico')
-root.iconbitmap(icon_path)
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
+
+# sets the pokemon weindow icon
+app_id = 'COMP593.PokeImageViewer'
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
+icon_path = os.path.join(script_dir, 'Great-Ball.ico')
+root.iconbitmap(icon_path)
+
 #creats the fra,e
 frame = ttk.Frame(root)
 frame.grid(row=0, column=0, padx=10 , pady=10, sticky=NSEW)
@@ -53,27 +49,28 @@ def handle_pokemon_sel(event):
    
     # Download and save the artwork for the selected Pokemon
     global image_path
-    image_path = poki_api.get_pokemon_info(pokemon_name, image_cahe_dir )
+    image_path = poki_api.get_pokemon_image(pokemon_name, image_cahe_dir)
     
-    
-    if image_path is not None :
-        img_poke['file'] = img_poke
-        
-cbox_poke_names.bind('<<CombobxSelected>>', handle_pokemon_sel)
+    if image_path is not None:
+        img_poke['file'] = image_path
 
+cbox_poke_names.bind('<<ComboboxSelected>>', handle_pokemon_sel)
 
 # sets a button
 btn_set_desktop = ttk.Button(frame, text= ' Set as Desktop Image')
 btn_set_desktop.grid(row=2, column=0, padx=10, pady=10)
 
-
-
-
+#sets the images to background
+def set_background():
+    global image_path
+    set_desktop_background_image(image_path)
 
 
 root.mainloop()
 
-if __name__ == '__main__':
-    main()
+
+
+
+
 
 
