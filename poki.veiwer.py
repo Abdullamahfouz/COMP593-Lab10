@@ -5,6 +5,7 @@ import os
 import ctypes
 from image_lib import set_desktop_background_image
 
+
 #gets the path of the script
 script_path = os.path.abspath(__file__)
 script_dir = os.path.dirname(script_path)
@@ -26,7 +27,7 @@ ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
 icon_path = os.path.join(script_dir, 'Great-Ball.ico')
 root.iconbitmap(icon_path)
 
-#creats the fra,e
+#creats the frame
 frame = ttk.Frame(root)
 frame.grid(row=0, column=0, padx=10 , pady=10, sticky=NSEW)
 frame.columnconfigure(0, weight=1)
@@ -51,21 +52,23 @@ def handle_pokemon_sel(event):
     global image_path
     image_path = poki_api.get_pokemon_image(pokemon_name, image_cahe_dir)
     
+    #enable the button when an image is slected
     if image_path is not None:
         img_poke['file'] = image_path
+        btn_set_desktop.state(['!disabled'])
 
 cbox_poke_names.bind('<<ComboboxSelected>>', handle_pokemon_sel)
-
-# sets a button
-btn_set_desktop = ttk.Button(frame, text= ' Set as Desktop Image')
-btn_set_desktop.grid(row=2, column=0, padx=10, pady=10)
 
 #sets the images to background
 def set_background():
     global image_path
     set_desktop_background_image(image_path)
+    
+# sets a button that sets the background
+btn_set_desktop = ttk.Button(frame, text= ' Set as Desktop Image', command=set_background, state=DISABLED)
+btn_set_desktop.grid(row=2, column=0, padx=10, pady=10)
 
-
+# GUI loop
 root.mainloop()
 
 
